@@ -11,4 +11,5 @@ Isn't he cute?
 The puzzle pieces can be shuffled by clicking on the "shuffle" button.
 
 The rows and columns of the puzzle can be cycled by clicking on the arrow
-buttons. This puzzle may look like a square but it is actually a torus!
+buttons (&#x25b2;, &#x25b6;, &#x25bc;, &#x25c0;). The puzzle may look like
+a square but it is actually a torus!
