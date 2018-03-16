@@ -8,24 +8,24 @@
 
   document.observe("dom:loaded", function() {
     // add puzzle pieces to puzzle
-    var puzzle = $("puzzlearea");
+    var puzzle = $("grid");
     for (var row = 0; row < NUMBER; row++) {
       for (var col = 0; col < NUMBER; col++) {
         // create puzzle piece
-        var square = $(document.createElement("div"));
-        square.addClassName("square");
-        square.id = "square_" + row + "_" + col;
-        square.style.top = row * LENGTH + "px";
-        square.style.left = col * LENGTH + "px";
-        square.style.backgroundPosition = -col * LENGTH + "px " + -row * LENGTH + "px";
-        puzzle.appendChild(square);
+        var tile = $(document.createElement("div"));
+        tile.addClassName("tile");
+        tile.id = "tile_" + row + "_" + col;
+        tile.style.top = row * LENGTH + "px";
+        tile.style.left = col * LENGTH + "px";
+        tile.style.backgroundPosition = -col * LENGTH + "px " + -row * LENGTH + "px";
+        puzzle.appendChild(tile);
       }
     }
     // adds controls for puzzle
-    setupButtons("left", "&#x25c0;", left);
-    setupButtons("right", "&#x25b6;", right);
-    setupButtons("up", "&#x25b2;", up);
-    setupButtons("down", "&#x25bc;", down);
+    setupButtons("north", "&#x25b2;", north);
+    setupButtons("south", "&#x25bc;", south);
+    setupButtons("east", "&#x25b6;", east);
+    setupButtons("west", "&#x25c0;", west);
     // add handler to shuffle button
     $("shuffle").observe("click", shuffle);
   });
@@ -46,80 +46,80 @@
     }
   }
 
-  // Returns square at given row and column.
-  function getSquare(row, col) {
-    return $("square_" + row + "_" + col);
-  }
-
-  // Returns row of given square.
-  function getRow(square) {
-    return parseInt(square.getStyle("top")) / LENGTH;
-  }
-
-  // Returns column of given square.
-  function getCol(square) {
-    return parseInt(square.getStyle("left")) / LENGTH;
-  }
-
-  // Cycle given row left.
-  function left(row) {
-    for (var col = NUMBER - 1; col > 0; col--) {
-      swap(getSquare(row, 0), getSquare(row, col));
-    }
-  }
-
-  // Cycle given row right.
-  function right(row) {
-    for (var col = 0; col < NUMBER; col++) {
-      swap(getSquare(row, NUMBER - 1), getSquare(row, col));
-    }
-  }
-
-  // Cycle given column up.
-  function up(col) {
+  // Cycle given column north.
+  function north(col) {
     for (var row = NUMBER - 1; row > 0; row--) {
-      swap(getSquare(0, col), getSquare(row, col));
+      swap(getTile(0, col), getTile(row, col));
     }
   }
 
-  // Cycle given column down.
-  function down(col) {
+  // Cycle given column south.
+  function south(col) {
     for (var row = 0; row < NUMBER; row++) {
-      swap(getSquare(NUMBER - 1, col), getSquare(row, col));
+      swap(getTile(NUMBER - 1, col), getTile(row, col));
     }
   }
 
-  // Swaps the given squares.
-  function swap(square1, square2) {
-    var row1 = getRow(square1);
-    var col1 = getCol(square1);
-    var row2 = getRow(square2);
-    var col2 = getCol(square2);
-    square1.style.top  = row2 * LENGTH + "px";
-    square1.style.left = col2 * LENGTH + "px";
-    square1.id = "square_" + row2 + "_" + col2;
-    square2.style.top  = row1 * LENGTH + "px";
-    square2.style.left = col1 * LENGTH + "px";
-    square2.id = "square_" + row1 + "_" + col1;
+  // Cycle given row east.
+  function east(row) {
+    for (var col = 0; col < NUMBER; col++) {
+      swap(getTile(row, NUMBER - 1), getTile(row, col));
+    }
+  }
+
+  // Cycle given row west.
+  function west(row) {
+    for (var col = NUMBER - 1; col > 0; col--) {
+      swap(getTile(row, 0), getTile(row, col));
+    }
+  }
+
+  // Returns tile at given row and column.
+  function getTile(row, col) {
+    return $("tile_" + row + "_" + col);
+  }
+
+  // Swaps the given tiles.
+  function swap(tile1, tile2) {
+    var row1 = getRow(tile1);
+    var col1 = getCol(tile1);
+    var row2 = getRow(tile2);
+    var col2 = getCol(tile2);
+    tile1.id = "tile_" + row2 + "_" + col2;
+    tile1.style.top = row2 * LENGTH + "px";
+    tile1.style.left = col2 * LENGTH + "px";
+    tile2.id = "tile_" + row1 + "_" + col1;
+    tile2.style.top = row1 * LENGTH + "px";
+    tile2.style.left = col1 * LENGTH + "px";
+  }
+
+  // Returns row of given tile.
+  function getRow(tile) {
+    return parseInt(tile.id.split("_")[1]);
+  }
+
+  // Returns column of given tile.
+  function getCol(tile) {
+    return parseInt(tile.id.split("_")[2]);
   }
 
   // Shuffles the puzzle.
   function shuffle() {
-    var squares = $$(".square");
+    var tiles = $$(".tile");
     for (var i = 0; i < 1000; i++) {
-      //var j = parseInt(Math.random() * squares.length);
-      //var k = parseInt(Math.random() * squares.length);
-      //swap(squares[j], squares[k]);
-      var j = parseInt(Math.random() * squares.length);
+      //var j = parseInt(Math.random() * tiles.length);
+      //var k = parseInt(Math.random() * tiles.length);
+      //swap(tiles[j], tiles[k]);
+      var j = parseInt(Math.random() * tiles.length);
       var k = parseInt(Math.random() * 4);
       if (k == 0) {
-        left(getRow(squares[j]));
+        east(getRow(tiles[j]));
       } else if (k == 1) {
-        right(getRow(squares[j]));
+        west(getRow(tiles[j]));
       } else if (k == 2) {
-        up(getCol(squares[j]));
+        north(getCol(tiles[j]));
       } else {
-        down(getCol(squares[j]));
+        south(getCol(tiles[j]));
       }
     }
   }

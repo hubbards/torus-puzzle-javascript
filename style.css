@@ -1,9 +1,20 @@
 /* Style sheet for torus puzzle with 4 rows and columns and tile side lengths of
 100 pixels. */
 
-.square {
-  font-size: 30pt;
-  text-align: center;
+#torus-puzzle {
+  width: 460px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#grid {
+  float: left;
+  height: 400px;
+  width: 400px;
+  position: relative;
+}
+
+.tile {
   width: 98px;
   height: 98px;
   border-width: 1px;
@@ -14,34 +25,7 @@
   cursor: default;
 }
 
-#puzzleframe {
-  width: 460px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 1em;
-}
-
-#puzzlearea {
-  float: left;
-  height: 400px;
-  width: 400px;
-  position: relative;
-}
-
-.colcycle button, .rowcycle button {
-  background-color: transparent;
-  border: none;
-  padding: 0px;
-  width: 30px;
-  height: 30px;
-}
-
-.colcycle button:hover, .rowcycle button:hover {
-  color: red;
-  cursor: pointer;
-}
-
-.colcycle {
+#north, #south {
   width: 460px;
   height: 30px;
   margin-left: auto;
@@ -49,21 +33,34 @@
   padding-left: 65px;
 }
 
-#down {
-  clear: left;
-}
-
-.rowcycle {
+#east, #west {
   float: left;
   width: 30px;
   height: 400px;
 }
 
-.colcycle button {
+#south {
+  clear: left;
+}
+
+.cycle-panel button {
+  background-color: transparent;
+  border: none;
+  padding: 0px;
+  width: 30px;
+  height: 30px;
+}
+
+.cycle-panel button:hover {
+  color: red;
+  cursor: pointer;
+}
+
+#north button, #south button {
   margin-right: 70px;
 }
 
-.rowcycle button {
+#east button, #west button {
   margin-top: 35px;
   margin-bottom: 35px;
 }
@@ -74,4 +71,5 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+  padding-top: 2px;
 }
