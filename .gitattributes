@@ -5,4 +5,4 @@
 * text=auto
 
 # Treat images as binary
-*.jpe?g binary
+*.jpg binary
