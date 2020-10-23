@@ -1,8 +1,7 @@
 // Main script for torus puzzle with 4 rows and columns.
+"use strict";
 
 (function() {
-  "use strict";
-
   var NUMBER = 4; // number of rows/cols in puzzle
   var LENGTH = 100; // pixel width/height of tile
 
