@@ -1,1 +1,4 @@
+# https://git-scm.com/docs/gitignore
+
+# macOS system file
 .DS_Store
